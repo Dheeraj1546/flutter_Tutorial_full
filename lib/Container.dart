@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/Row-Column.dart';
 
+import 'BMI-App/bmi-app.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key,}) : super(key: key);
@@ -47,6 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
              MaterialPageRoute(builder: (context) => rowandcolumns ()),
            );
          }, child: Text("Row & Column")),
+         ElevatedButton(onPressed: () {
+           Navigator.push(
+             context,
+             MaterialPageRoute(builder: (context) => BmiApp ()),
+           );
+         }, child: Text("BMI")),
+
 
        ],
      ),
