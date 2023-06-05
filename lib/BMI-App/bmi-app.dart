@@ -62,6 +62,9 @@ class _BmiAppState extends State<BmiApp> {
               ElevatedButton(onPressed: (){
 
 print(ft);
+print(inch);
+print(wt);
+
 
               }, child: Text("Calcuter"))
             ],
