@@ -8,12 +8,16 @@ class BmiApp extends StatefulWidget {
 }
 
 class _BmiAppState extends State<BmiApp> {
-  TextEditingController wt = TextEditingController();
-  TextEditingController ft = TextEditingController();
-  TextEditingController inch = TextEditingController();
+  var wtController = TextEditingController();
+  var ftController = TextEditingController();
+  var inchController = TextEditingController();
+  var result ="";
+  var bgColor;
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           primary: true,
@@ -21,6 +25,8 @@ class _BmiAppState extends State<BmiApp> {
         ),
         body: Center(
             child: Container(
+              color: bgColor,
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -29,7 +35,7 @@ class _BmiAppState extends State<BmiApp> {
                 height: 20,
               ),
               TextField(
-                controller: wt,
+                controller: wtController,
                 decoration:InputDecoration(
                   label: Text("Enter your weight(in/ Kg)"),
 
@@ -42,7 +48,7 @@ class _BmiAppState extends State<BmiApp> {
                 height: 8,
               ),
               TextField(
-                controller: ft,
+                controller: ftController,
                 decoration: InputDecoration(
                   label: Text("Enter your height(in feet)")
                 ),
@@ -51,7 +57,7 @@ class _BmiAppState extends State<BmiApp> {
                height: 8,
               ),
               TextField(
-                controller: inch,
+                controller: inchController,
                 decoration: InputDecoration(
                   label: Text("inter youe height(in inch)")
                 ),
@@ -60,13 +66,59 @@ class _BmiAppState extends State<BmiApp> {
                 height: 8,
               ),
               ElevatedButton(onPressed: (){
+                var wt=wtController.text.toString();
+                var ft=ftController.text.toString();
+                var inch =inchController.text.toString();
+                if(wt!="" && ft!="" && inch!=""){
+                  var iwt= int.parse(wt);
+                  var ift=int.parse(ft);
+                  var iInch=int.parse(inch);
+                  var tInch=(ift*12)+iInch;
+                  var tcm=tInch*2.54;
+                  var tm=tcm/100;
+                  var bmi=iwt/(tm*tm);
+                  var mes ="";
 
-print(ft);
-print(inch);
-print(wt);
+                  if(bmi>25){
+                    mes="you are overWeight";
+                    bgColor=Colors.red.shade300;
+
+                  }else if(bmi<18){
+                    mes="you are UnderWeight";
+                    bgColor=Colors.red.shade300;
+
+                  }else{
+                    mes="you are Healthy";
+                    bgColor=Colors.green.shade300;
+
+                  }
+                  setState(() {
+                    result= "$mes\n your BMI is :$bmi";
+                  });
 
 
-              }, child: Text("Calcuter"))
+
+
+                }else{
+                  setState(() {
+                    result ="All fill required";
+                  });
+
+                }
+
+
+
+
+
+              }, child: Text("Calcuter")),
+              SizedBox(
+                height: 30,
+              ),
+
+              Text(result,style: TextStyle(
+                color:Colors.red,
+                fontSize: 25
+              ),),
             ],
           ),
         )));
